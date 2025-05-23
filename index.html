@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Assignment</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="controls">
+    <h1>Hypermart Checkout System</h1>
+    <h5>Real-time queue management system</h5>
+    <input 
+      type="text"
+      name=""
+      placeholder="Enter number of items"
+      id="checkout-count"
+    />
+    <button onclick="initailizeCheckouts()">Intialize Checkouts</button>
+    <buttonon onclick="additem()">Checkout Items (Random Items)</button>
+</div>
+    <div id="checkouts" class="checkout-container"></div>
+    <script>
+      // all checkouts will be stored in this and each checkout will be a sub array
+      // checkouts = [[2,3],[2],[3,5]]
+      let checkouts = []
+
+      // first we will initailize the no of checkouts min. 3
+      function initailizeCheckouts() {
+          const count = parseInt(document.getElementById("checkout-count").value) || 3 
+          checkouts = Array(count).fill().map(()=>[])
+         updateUi()
+          // aslo we have to update the ui
+
+      }
+
+      // getIndex function will return the index of check out which has least items
+      function getIndex(){
+          // Infinity for considering most possible small sum of an checkout
+          let minTotal = Infinity
+          let selectedIndex = 0
+          for (i=0;i<checkouts.length;i++){
+              let total = checkouts[i].reduce((a,b) => a + b, 0);
+              if(total<minTotal){
+                  minTotal = total
+                  selectedIndex = i
+              }
+
+          }
+          return selectedIndex
+      }
+      // then customer will click on the Checkout Out itens button to add the items in each checkout one by one
+
+      function additem(){
+          if(checkouts.length === 0){
+              alert("Plz initialize checkouts first")
+
+          }
+          const index  = getIndex();
+          const items = Math.floor(Math.random() * 10) + 1; // 1-10
+          checkouts[index].push(items)
+   updateUi()
+      }
+
+      function updateUi(){
+          const container = document.getElementById('checkouts')
+          console.log(checkouts
+          )
+          container.innerHTML = checkouts.map((queue,index) => 
+         
+          `
+          <div class="checkout">
+              <h2> Checkout ${index+1}</h2>
+              <div class="queue">
+                  ${queue.map(items => `
+                  
+                  <div class="customer-item">${items} items </div>
+                  `).join("")}
+              </div>
+          <div class="total">
+              Total Items : ${queue.reduce((a,b)=> a+b,0)}
+          </div>
+          </div>
+          `
+          ).join("");
+      }
+      window.onload = () => {
+          document.getElementById("checkout-count").value = 3
+          initailizeCheckouts()
+      }
+    </script>
+  </body>
+</html>
