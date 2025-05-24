@@ -1,3 +1,5 @@
+/* got colour combination from https://colorhunt.co/ */
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -104,4 +106,28 @@ button:hover {
     font-weight: bold;
     text-align: center;
     color: #333;
+}
+
+@media (max-width: 600px) {
+    .controls {
+        width: 100%;
+    }
+
+    input, button {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .heading {
+        font-size: 1.5rem;
+    }
+
+    .tagLine {
+        font-size: 0.9rem;
+    }
+    
+.checkout h2 {
+    font-size: 0.5rem;
+    
+}
 }
